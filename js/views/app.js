@@ -69,16 +69,16 @@ app.AppView = Backbone.View.extend({
 	},
 
 	renderDues: function(){
-		var dues = _.uniq(app.Tasks.pluck('due'));
+		var dues = _.sortBy(_.uniq(app.Tasks.pluck('due')));
 		dues.forEach(function(due){
 			this.$('.table-head').append('<th>' + due + '</th>');
 		});
 	},
 
 	renderTasks: function(){
-		var tasks = _.uniq(app.Tasks.pluck('name'));
+		var tasks = _.sortBy(_.uniq(app.Tasks.pluck('name')));
 		tasks.forEach(function(task){
-			this.$('table').append('<tr id="' + task + '"><th>' + task + '</th></tr>')
+			this.$('table').append('<tr id="' + task + '"><td>' + task + '</td></tr>')
 		});
 	}
 
