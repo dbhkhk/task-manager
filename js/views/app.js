@@ -26,8 +26,9 @@ app.AppView = Backbone.View.extend({
 
 	render: function(){
 		if (app.Tasks.length) {
-			this.$('.table-head').html('<th>Task List</th>');
+			this.$('table').html('<tr class="table-head"><th>Task List</th></tr>');
 			this.renderDues();
+			this.renderTasks();
 		}
 	},
 
@@ -71,6 +72,13 @@ app.AppView = Backbone.View.extend({
 		var dues = app.Tasks.pluck('due');
 		dues.forEach(function(due){
 			this.$('.table-head').append('<th>' + due + '</th>');
+		});
+	},
+
+	renderTasks: function(){
+		var tasks = app.Tasks.pluck('name');
+		tasks.forEach(function(task){
+			this.$('table').append('<tr id="' + task + '"><th>' + task + '</th></tr>')
 		});
 	}
 
