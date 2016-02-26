@@ -7,8 +7,6 @@ app.AppView = Backbone.View.extend({
 
 	el: '.app',
 
-	headTemplate: _.template( $('#th-template').html() ),
-
 	events: {
 		'click button': 'toggleVisible',
 		'click .submit': 'createTask'
@@ -28,6 +26,7 @@ app.AppView = Backbone.View.extend({
 
 	render: function(){
 		if (app.Tasks.length) {
+			this.$('.table-head').html('<th>Task List</th>');
 			this.renderDues();
 		}
 	},
@@ -70,9 +69,9 @@ app.AppView = Backbone.View.extend({
 
 	renderDues: function(){
 		var dues = app.Tasks.pluck('due');
-		this.$('.table-head').append(this.headTemplate({
-			due: due
-		}));
+		dues.forEach(function(due){
+			this.$('.table-head').append('<th>' + due + '</th>');
+		});
 	}
 
 });
