@@ -7,7 +7,32 @@
   <link rel="stylesheet" href="assets/index.css">
 </head>
 <body>
-  
+  <table>
+    <tr>
+      <th>Task Name</th>
+    </tr>
+  </table>
+  <button>Add Task</button>
+  <form class="hide">
+    <label for="name">Task Name:</label>
+    <input type="text" name="Task Name" id="name"><br>
+    <label for="note">Note:</label>
+    <input type="text" name="Note" id="note"><br>
+    <label for="due">Due:</label>
+    <input type="text" name="Due" placeholder="MM/DD" id="due"><br>
+    <input type="submit" value="Create">
+  </form>
+  <script type="text/template" id="th-template">
+    <th><%= due %></th>
+  </script>
+  <script type="text/template" id="name-template">
+    <tr>
+      <td><%= name %></td>
+    </tr>
+  </script>
+  <script type="text/template" id="due-template">
+    <td><%= due %></td>
+  </script>
   <script src="js/lib/jquery-1.11.3.min.js"></script>
   <script src="js/lib/underscore-min-1.8.3.js"></script>
   <script src="js/lib/backbone-min-1.2.3.js"></script>
