@@ -7,21 +7,23 @@
   <link rel="stylesheet" href="assets/index.css">
 </head>
 <body>
-  <table>
-    <tr>
-      <th>Task Name</th>
-    </tr>
-  </table>
-  <button>Add Task</button>
-  <form class="hide">
-    <label for="name">Task Name:</label>
-    <input type="text" name="Task Name" id="name"><br>
-    <label for="note">Note:</label>
-    <input type="text" name="Note" id="note"><br>
-    <label for="due">Due:</label>
-    <input type="text" name="Due" placeholder="MM/DD" id="due"><br>
-    <input type="submit" value="Create">
-  </form>
+  <section class="app">
+    <table>
+      <tr class="table-head">
+        <th>Task List</th>
+      </tr>
+    </table>
+    <button>Add Task</button>
+    <form class="hide">
+      <label for="name">Task Name:</label>
+      <input id="name" placeholder="What task?"><br>
+      <label for="note">Note:</label>
+      <input id="note" placeholder="Any note?"><br>
+      <label for="due">Due:</label>
+      <input id="due" placeholder="MM/DD"><br>
+      <input type="button" value="Create" class="submit">
+    </form>
+  </section>
   <script type="text/template" id="th-template">
     <th><%= due %></th>
   </script>
@@ -37,6 +39,8 @@
   <script src="js/lib/underscore-min-1.8.3.js"></script>
   <script src="js/lib/backbone-min-1.2.3.js"></script>
   <script src="js/lib/backbone.localStorage-min.js"></script>
+  <script src="js/models/task.js"></script>
+  <script src="js/collections/tasks.js"></script>
   <script src="js/views/app.js"></script>
   <script src="js/app.js"></script>
 </body>
