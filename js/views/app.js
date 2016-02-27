@@ -9,8 +9,7 @@ app.AppView = Backbone.View.extend({
 
 	events: {
 		'click .add': 'toggleVisible',
-		'click .submit': 'createTask',
-		'click .destroy': 'clear'
+		'click .submit': 'createTask'
 	},
 
 	initialize: function(){
@@ -18,16 +17,18 @@ app.AppView = Backbone.View.extend({
 		this.$note = this.$('#note');
 		this.$due = this.$('#due');
 
+		this.listenTo(app.Tasks, 'add', this.addOne);
 		this.listenTo(app.Tasks, 'all', this.render);
 
 		app.Tasks.fetch();
 	},
 
+	// re-render means refreshing the table head
 	render: function(){
+		this.$('.table-head').html('<th>Tasks</th>');
 		if (app.Tasks.length) {
-			this.$('.task-table').html('<tr class="table-head"><th>Tasks</th></tr>');
 			this.renderDues();
-			this.renderTasks();
+			//this.renderTasks();
 		}
 	},
 
@@ -76,29 +77,21 @@ app.AppView = Backbone.View.extend({
 		});
 	},
 
-	renderTasks: function(){
-		var self = this;
-		var tasks = _.sortBy(_.uniq(app.Tasks.pluck('name')));
-		tasks.forEach(function(task){
-			self.$('.task-table').append(self.newTaskRow(task));
-		});
-	},
+	// renderTasks: function(){
+	// 	var self = this;
+	// 	var tasks = _.sortBy(_.uniq(app.Tasks.pluck('name')));
+	// 	tasks.forEach(function(task){
+	// 		self.$('.task-table').append(self.newTaskRow(task));
+	// 	});
+	// },
 
 	addOne: function(task){
 		var view = new app.TaskView({model: task});
-		// TODO: find the right place to append view.render().el
-		// 1. find the right row to re-render
-		var name = task.get('name');
-		var $row = $('tr#' + name);
-		// 2. construct new row
-		var rowContent = '';
-		//var numberOfCols = this.Dues.length;
-		var position;
-		// 3. re-render the row
-	},
+		$('.task-table').append(view.render().el);
+	}
 
 	// given a task's name, generate the table row to display
-	newTaskRow: function(task){
+	/*newTaskRow: function(task){
 
 		// find the models with this task
 		var models = app.Tasks.filter(function(model){
@@ -124,10 +117,5 @@ app.AppView = Backbone.View.extend({
 
 		content += '</tr>';
 		return content;
-	},
-
-	clear: function(){
-
-	}
-
+	},*/
 });

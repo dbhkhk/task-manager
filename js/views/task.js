@@ -4,22 +4,25 @@ var app = app || {};
 
 // TaskView is view for a single model
 app.TaskView = Backbone.View.extend({
-	tagName: 'td',
+	tagName: 'tr',
 
 	events: {
-		'click .destroy': 'clear'
+		'click .destroy': 'removeOne'
 	},
 
 	initialize: function(){
+		this.listenTo(this.model, 'change', this.render);
 		this.listenTo(this.model, 'destroy', this.remove);
 	},
 
+	// re-render when model changes
 	render: function(){
 		this.$el.html(this.model.get('name') + '<button class="destroy"></button>');
 		return this;
 	},
 
-	clear: function(){
-		this.model.destroy();
+	removeOne: function(e){
+		var $td = $(e.target).parent();
+
 	}
 });
