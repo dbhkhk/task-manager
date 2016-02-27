@@ -1,3 +1,20 @@
 .hide {
 	display: none;
 }
+
+.destroy {
+	display: none;
+	transition: color 0.2s ease-out;
+}
+
+.destroy:hover {
+	color: #af5b5e;
+}
+
+.destroy:after {
+	content: '×';
+}
+
+td:hover .destroy {
+	display: inline;
+}

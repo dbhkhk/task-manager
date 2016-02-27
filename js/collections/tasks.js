@@ -7,7 +7,9 @@ var TaskList = Backbone.Collection.extend({
 
 	model: app.Task,
 
-	localStorage: new Backbone.LocalStorage('task-manager')
+	localStorage: new Backbone.LocalStorage('task-manager'),
+
+	comparator: 'due'
 
 });
 
