@@ -15,7 +15,7 @@ app.TaskView = Backbone.View.extend({
 	},
 
 	render: function(){
-		this.$el.html(this.model.get('name') + '<button class="destroy"></button>');
+		this.$el.html(this.model.get('note') + '<button class="destroy"></button>');
 		return this;
 	},
 

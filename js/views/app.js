@@ -5,12 +5,11 @@ var app = app || {};
 // AppView is top-level view
 app.AppView = Backbone.View.extend({
 
-	el: '.app',
+	el: '.task-manager',
 
 	events: {
 		'click .add': 'toggleVisible',
-		'click .submit': 'createTask',
-		'click .destroy': 'clear'
+		'click .submit': 'createTask'
 	},
 
 	initialize: function(){
@@ -80,25 +79,17 @@ app.AppView = Backbone.View.extend({
 		var self = this;
 		var tasks = _.sortBy(_.uniq(app.Tasks.pluck('name')));
 		tasks.forEach(function(task){
-			self.$('.task-table').append(self.newTaskRow(task));
+			// render task name
+			$('.task-table').append('<tr id="' + task + '"><td>' + task + '</td></tr>');
+
+			self.renderTaskCells(task);
+
+
 		});
 	},
 
-	addOne: function(task){
-		var view = new app.TaskView({model: task});
-		// TODO: find the right place to append view.render().el
-		// 1. find the right row to re-render
-		var name = task.get('name');
-		var $row = $('tr#' + name);
-		// 2. construct new row
-		var rowContent = '';
-		//var numberOfCols = this.Dues.length;
-		var position;
-		// 3. re-render the row
-	},
-
 	// given a task's name, generate the table row to display
-	newTaskRow: function(task){
+	renderTaskCells: function(task){
 
 		// find the models with this task
 		var models = app.Tasks.filter(function(model){
@@ -110,24 +101,15 @@ app.AppView = Backbone.View.extend({
 			taskDues.push(model.get('due'));
 		});
 
-		var content = '<tr><td>' + task + '</td>';
-
-		// if a due is in the taskDues, add a column to display
+		// if a due is in the taskDues, render a task cell
 		this.dues.forEach(function(due){
 			var pos = $.inArray(due, taskDues);
 			if (pos !== -1) {
-				content += '<td>' + models[pos].get('note') + '<button class="destroy"></button></td>';
+				var view = new app.TaskView({model: models[pos]});
+				$('#' + task).append(view.render().el);
 			} else {
-				content += '<td></td>';
+				$('#' + task).append('<td></td>');
 			}
 		});
-
-		content += '</tr>';
-		return content;
 	},
-
-	clear: function(){
-
-	}
-
 });
