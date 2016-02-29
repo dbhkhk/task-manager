@@ -18,7 +18,7 @@ td {
 }
 
 .destroy:after {
-	content: '×';
+	content: 'X';
 }
 
 td:hover .destroy {
