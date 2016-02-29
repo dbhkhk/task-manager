@@ -5,6 +5,13 @@ you can delete them.
 
 Click [here](http://dbhkhk.github.io/task-manager/) or open index.html to run.
 
+# How to use
+
+Click "Add Task" to enter your task name, note, and due date. The standard date format is MM/DD.
+Click "Create" when you finish entering, and a new task will be displayed.
+Hover your mouse over a displayed task and you will see the "X" button. Click it to delete the task.
+
+
 # Frameworks used
 [Backbone.js](http://backbonejs.org/) 1.2.3
 
