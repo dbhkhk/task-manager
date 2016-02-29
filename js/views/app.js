@@ -23,8 +23,8 @@ app.AppView = Backbone.View.extend({
 	},
 
 	render: function(){
+		$('.task-table').html('<tr class="table-head"><th>Tasks</th></tr>');
 		if (app.Tasks.length) {
-			this.$('.task-table').html('<tr class="table-head"><th>Tasks</th></tr>');
 			this.renderDues();
 			this.renderTasks();
 		}
