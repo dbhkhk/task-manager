@@ -30,10 +30,12 @@ app.AppView = Backbone.View.extend({
 		}
 	},
 
+	// toggle the visibility of the data entry form when 'Add Task' button is clicked
 	toggleVisible: function(){
 		this.$('form').toggleClass('hide');
 	},
 
+	// create a model when 'Create' button in the data entry form is clicked
 	createTask: function(){
 		// to create a task, name, note, and due date must all exist
 		if ( !this.$name.val().trim() || !this.$note.val().trim() || !this.$due.val().trim() ) {
@@ -47,6 +49,7 @@ app.AppView = Backbone.View.extend({
 
 	},
 
+	// get attributes from input and generate an obj for createTask
 	newAttributes: function(){
 		return {
 			name: this.$name.val().trim(),
@@ -61,30 +64,29 @@ app.AppView = Backbone.View.extend({
 		this.$due.val('');
 	},
 
+	// clear input and hide the form after creating a new model
 	clearForm: function(){
 		this.clearInput();
 		this.toggleVisible();
 	},
 
+	// render the first row of due dates in the table
 	renderDues: function(){
-		var dues = _.uniq(app.Tasks.pluck('due'));
-		this.dues = dues;
-		this.numberOfCols = dues.length; // number of columns each row will have (excluding the task name column)
-		dues.forEach(function(due){
-			this.$('.table-head').append('<th>' + due + '</th>');
+		this.dues = _.uniq(app.Tasks.pluck('due')); // get all due dates from collection
+		this.dues.forEach(function(due){
+			$('.table-head').append('<th>' + due + '</th>');
 		});
 	},
 
+	// render a row for each task name
 	renderTasks: function(){
 		var self = this;
-		var tasks = _.sortBy(_.uniq(app.Tasks.pluck('name')));
+		var tasks = _.sortBy(_.uniq(app.Tasks.pluck('name'))); // get all task names
 		tasks.forEach(function(task){
 			// render task name
 			$('.task-table').append('<tr id="' + task + '"><td>' + task + '</td></tr>');
 
 			self.renderTaskCells(task);
-
-
 		});
 	},
 
