@@ -24,3 +24,8 @@ td {
 td:hover .destroy {
 	display: inline;
 }
+
+form label {
+    display: inline-block;
+    width:30px;
+}
