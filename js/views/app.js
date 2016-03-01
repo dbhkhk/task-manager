@@ -10,6 +10,8 @@ app.AppView = Backbone.View.extend({
 	// template for dues in top row
 	dueTemplate: _.template($('#due-template').html()),
 
+	taskTemplate: _.template($('#task-template').html()),
+
 	events: {
 		'click .add': 'toggleVisible',
 		'click .submit': 'createTask'
@@ -101,7 +103,7 @@ app.AppView = Backbone.View.extend({
 		var tasks = _.sortBy(_.uniq(app.Tasks.pluck('name'))); // get all task names
 		tasks.forEach(function(task){
 			// render task name
-			$('.task-table').append('<tr id="' + task + '"><td>' + task + '</td></tr>');
+			$('.task-table').append(self.taskTemplate({task: task}));
 
 			self.renderTaskCells(task);
 		});
