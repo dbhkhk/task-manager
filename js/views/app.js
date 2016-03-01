@@ -7,6 +7,9 @@ app.AppView = Backbone.View.extend({
 
 	el: '.task-manager',
 
+	// template for dues in top row
+	dueTemplate: _.template($('#due-template').html()),
+
 	events: {
 		'click .add': 'toggleVisible',
 		'click .submit': 'createTask'
@@ -85,9 +88,10 @@ app.AppView = Backbone.View.extend({
 
 	// render the first row of due dates in the table
 	renderDues: function(){
+		var self = this;
 		this.dues = _.uniq(app.Tasks.pluck('due')); // get all due dates from collection
 		this.dues.forEach(function(due){
-			$('.table-head').append('<th>' + due + '</th>');
+			$('.table-head').append(self.dueTemplate({due: due}));
 		});
 	},
 
