@@ -109,7 +109,7 @@ app.AppView = Backbone.View.extend({
 		});
 	},
 
-	// given a task's name, generate the table row to display
+	// render all <td>s in a row following a task name
 	renderTaskCells: function(task){
 
 		// find the models with this task
@@ -122,7 +122,7 @@ app.AppView = Backbone.View.extend({
 			taskDues.push(model.get('due'));
 		});
 
-		// if a due is in the taskDues, render a task cell
+		// if a due is in the taskDues, render a task cell, otherwise render a blank <td>
 		this.dues.forEach(function(due){
 			var pos = $.inArray(due, taskDues);
 			if (pos !== -1) {
