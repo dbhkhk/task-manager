@@ -6,6 +6,8 @@ var app = app || {};
 app.TaskView = Backbone.View.extend({
 	tagName: 'td', // create a <td> element for each model to render in the table
 
+	cellTemplate: _.template($('#cell-template').html()),
+
 	events: {
 		'click .destroy': 'clear'
 	},
@@ -17,7 +19,8 @@ app.TaskView = Backbone.View.extend({
 	},
 
 	render: function(){
-		this.$el.html(this.model.get('note') + '<button class="destroy"></button>');
+		var self = this;
+		this.$el.html(self.cellTemplate({note: self.model.get('note')}));
 		return this;
 	},
 
