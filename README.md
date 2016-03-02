@@ -22,3 +22,5 @@ Hover your mouse over a displayed task and you will see the "X" button. Click it
 [Underscore.js](http://underscorejs.org/) 1.8.3
 
 [jQuery](https://jquery.com/) 1.11.3
+
+[Bootstrap](http://getbootstrap.com/) 3.3.6
