@@ -74,6 +74,7 @@ app.AppView = Backbone.View.extend({
 		});
 	},
 
+	// render the input form section where users can input new tasks
 	renderInputForm: function() {
 		var view = new app.FormView();
 		$('.task-manager').append(view.render().el);
