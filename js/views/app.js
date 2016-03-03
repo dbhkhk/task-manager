@@ -12,15 +12,8 @@ app.AppView = Backbone.View.extend({
 
 	taskTemplate: _.template($('#task-template').html()),
 
-	events: {
-		'click .add': 'toggleVisible',
-		'click .submit': 'createTask'
-	},
-
 	initialize: function(){
-		this.$name = this.$('#name');
-		this.$note = this.$('#note');
-		this.$due = this.$('#due');
+		this.renderInputForm();
 
 		this.listenTo(app.Tasks, 'all', this.render);
 
@@ -33,59 +26,6 @@ app.AppView = Backbone.View.extend({
 			this.renderDues();
 			this.renderTasks();
 		}
-	},
-
-	// toggle the visibility of the data entry form when 'Add Task' button is clicked
-	toggleVisible: function(){
-		this.$('form').toggleClass('hide');
-	},
-
-	// create a model when 'Create' button in the data entry form is clicked
-	createTask: function(){
-		// to create a task, name, note, and due date must all exist
-		if ( !this.$name.val().trim() || !this.$note.val().trim() || !this.$due.val().trim() ) {
-			this.clearForm();
-			return
-		}
-
-		app.Tasks.create(this.newAttributes());
-
-		this.clearForm();
-
-	},
-
-	// get attributes from input and generate an obj for createTask
-	newAttributes: function(){
-		var due = this.$due.val().trim();
-		var length = due.length;
-		var result = {
-			name: this.$name.val().trim(),
-			note: this.$note.val().trim()
-		};
-		// check the format of date input and make it standard as MM/DD
-		if (length === 3) {
-			due = '0' + due.slice(0, 2) + '0' + due.slice(2);
-		} else if (length === 4) {
-			if (due.indexOf('/') === 1) {
-				due = '0' + due;
-			} else {
-				due = due.slice(0,3) + '0' + due.slice(3);
-			}
-		}
-		result.due = due;
-		return result;
-	},
-
-	clearInput: function(){
-		this.$name.val('');
-		this.$note.val('');
-		this.$due.val('');
-	},
-
-	// clear input and hide the form after creating a new model
-	clearForm: function(){
-		this.clearInput();
-		this.toggleVisible();
 	},
 
 	// render the first row of due dates in the table
@@ -133,4 +73,9 @@ app.AppView = Backbone.View.extend({
 			}
 		});
 	},
+
+	renderInputForm: function() {
+		var view = new app.FormView();
+		$('.task-manager').append(view.render().el);
+	}
 });
