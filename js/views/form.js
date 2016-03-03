@@ -13,12 +13,7 @@ app.FormView = Backbone.View.extend({
 		'click .submit': 'createTask'
 	},
 
-	initialize: function(){
-		this.$name = this.$('#name');
-		this.$note = this.$('#note');
-		this.$due = this.$('#due');
-		this.$form = this.$('form');
-	},
+	initialize: function(){},
 
 	render: function(){
 		this.$el.html(this.inputFormTemplate());
@@ -27,6 +22,9 @@ app.FormView = Backbone.View.extend({
 
 	// create a model when 'Create' button in the data entry form is clicked
 	createTask: function(){
+		this.$name = this.$('#name');
+		this.$note = this.$('#note');
+		this.$due = this.$('#due');
 		// to create a task, name, note, and due date must all exist
 		if ( !this.$name.val().trim() || !this.$note.val().trim() || !this.$due.val().trim() ) {
 			this.clearForm();
@@ -40,7 +38,7 @@ app.FormView = Backbone.View.extend({
 	},
 	// toggle the visibility of the data entry form when 'Add Task' button is clicked
 	toggleVisible: function(){
-		this.$form.toggleClass('hide');
+		this.$('form').toggleClass('hide');
 	},
 
 	// clear input and hide the form after creating a new model
